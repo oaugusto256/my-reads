@@ -5,10 +5,67 @@
   E-mail: tavioalves@gmail.com
 **/
 
+html,
 body {
-  font-family: 'K2D', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.book-organizer {
+.height-100 {
+  min-height: 100vh;
+}
+
+.book-section {
+  font-size: 20px;
+  font-weight: 400;
+  padding-top: 20px;
+  letter-spacing: 2.5px;
   text-align: center;
+}
+
+.to-read {
+  background-color: #81ecec;
+}
+
+.reading {
+  background-color: #74b9ff;
+}
+
+.read {
+  background-color: #0984e3;
+}
+
+.button-section {
+  top: 85%;
+  right: 25px;
+  z-index: 1;
+  position: absolute;
+}
+
+.button-rounded {
+  width: 65px;
+  height: 65px;
+  margin: 10px;
+  padding: 5px;
+
+  border: none;
+  border-radius: 100%;
+
+  color: #fff;
+}
+
+.button-rounded:hover {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(74,74,74,1);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(74,74,74,1);
+  box-shadow: 0px 0px 5px 0px rgba(74,74,74,1);
+
+  cursor: pointer;
+  transition: box-shadow 0.5s;
+}
+
+.add {
+  background-color: #6cff60
+}
+
+.search {
+  background-color: #777;
 }
