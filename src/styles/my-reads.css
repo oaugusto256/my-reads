@@ -14,7 +14,53 @@ body {
   min-height: 100vh;
 }
 
-.book-section {
+.flex-collumn {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+
+  min-height: 75px;
+
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+
+  -webkit-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+
+  min-height: 50px;
+
+  font-size: 16px;
+
+  -webkit-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.book-section-header {
   font-size: 20px;
   font-weight: 400;
   padding-top: 20px;
@@ -23,22 +69,34 @@ body {
 }
 
 .to-read {
-  background-color: #81ecec;
+  background-color: #81ECEC;
 }
 
 .reading {
-  background-color: #74b9ff;
+  background-color: #81B7EC;
 }
 
 .read {
-  background-color: #0984e3;
+  background-color: #8181EC;
+}
+
+.to-read:hover {
+  transition: background-color 0.5s;
+}
+
+.reading:hover {
+  transition: background-color 0.5s;
+}
+
+.read:hover {
+  transition: background-color 0.5s;
 }
 
 .button-section {
   top: 85%;
   right: 25px;
   z-index: 1;
-  position: absolute;
+  position: fixed;
 }
 
 .button-rounded {
@@ -51,15 +109,12 @@ body {
   border-radius: 100%;
 
   color: #fff;
-}
-
-.button-rounded:hover {
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(74,74,74,1);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(74,74,74,1);
-  box-shadow: 0px 0px 5px 0px rgba(74,74,74,1);
 
   cursor: pointer;
-  transition: box-shadow 0.5s;
+
+  -webkit-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
 }
 
 .add {
@@ -68,4 +123,79 @@ body {
 
 .search {
   background-color: #777;
+}
+
+.book {
+  position: relative;
+
+  width: 130px;
+  height: 250px;
+  margin: 12.5px;
+}
+
+.book-img {
+  width: 130px;
+  height: 175px;
+  object-fit: cover;
+
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.book-title {
+  font-size: 10px;
+  font-weight: 400;
+  margin-top: 7.5px;
+  margin-bottom: 0px;
+}
+
+.book-subtitle {
+  font-size: 10px;
+  font-weight: 200;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  opacity: 0.5;
+}
+
+.book-selection {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+
+  right: -20px;
+  bottom: 55px;
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+
+  border: none;
+  border-radius: 100%;
+
+  color: #fff;
+
+  background-color: #6cff60;
+
+  cursor: pointer;
+
+  -webkit-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.book-selection select {
+  font-size: 12px;
+
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  cursor: pointer;
 }

@@ -4,6 +4,7 @@ import MyReads from './MyReads';
 import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import "./styles/animate.css";
 import './styles/my-reads.css';
 
 ReactDOM.render(<MyReads />, document.getElementById('root'));

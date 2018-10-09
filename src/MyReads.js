@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import Header from './components/Header';
+import Footer from './components/Footer';
 import BookSection from './components/BookSection';
 import ButtonSection from './components/ButtonSection';
+import { PropagateLoader } from 'react-spinners';
 import * as BookAPI from './BooksAPI';
 
 class MyReads extends Component {
@@ -8,7 +11,9 @@ class MyReads extends Component {
     super(props)
 
     this.state = {
-      books: [],
+      read: [],
+      wantToRead: [],
+      currentlyReading: [],
       loading: true
     }
   }
@@ -17,35 +22,46 @@ class MyReads extends Component {
   componentDidMount() {
     BookAPI.getAll()
       .then(books => {
-        this.setState({ books })
-        this.setState({ loading: false })
+        this.setState({ wantToRead: books, loading: false })
       })
   }
 
   render() {
     if (this.state.loading) {
-      return <p>Loading...</p>
+      return (
+        <div className="container height-100 animated fadeIn">
+          <div className="flex-center height-100">
+            <PropagateLoader
+              size={15}
+              sizeUnit={"px"}
+              color={'#0984e3'}
+            />
+          </div>
+        </div>
+      )
     } else {
       return (
         <div className="container-fluid">
+          <Header />
           <ButtonSection />
           <div className="row height-100">
             <BookSection
               name="Want to read"
               style="to-read"
-              books={this.state.books}
+              books={this.state.wantToRead}
             />
             <BookSection
               name="Currently reading"
               style="reading"
-              books={[]}
+              books={this.state.currentlyReading}
             />
             <BookSection
               name="Read"
               style="read"
-              books={[]}
+              books={this.state.read}
             />
           </div>
+          <Footer />
         </div>
       );
     }
