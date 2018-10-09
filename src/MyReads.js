@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BookSection from './components/BookSection';
-import ButtonSection from './components/ButtonSection';
+import AddButton from './components/AddButton';
 import { PropagateLoader } from 'react-spinners';
 import * as BookAPI from './BooksAPI';
 
@@ -11,19 +11,31 @@ class MyReads extends Component {
     super(props)
 
     this.state = {
-      read: [],
-      wantToRead: [],
-      currentlyReading: [],
+      books: [],
       loading: true
     }
   }
 
-
   componentDidMount() {
     BookAPI.getAll()
       .then(books => {
-        this.setState({ wantToRead: books, loading: false })
+        this.setState({ books: books, loading: false })
       })
+  }
+
+  moveBook = (book, moveTo) => {
+    if (moveTo.length !== 0) {
+      const newBooks = this.state.books.filter(bookToCheck => {
+        if (bookToCheck.id === book.id) {
+          bookToCheck.shelf = moveTo;
+          return bookToCheck;
+        } else {
+          return book;
+        }
+      })
+
+      this.setState({ books: newBooks })
+    }
   }
 
   render() {
@@ -43,22 +55,28 @@ class MyReads extends Component {
       return (
         <div className="container-fluid">
           <Header />
-          <ButtonSection />
+          <AddButton />
           <div className="row height-100">
             <BookSection
-              name="Want to read"
               style="to-read"
-              books={this.state.wantToRead}
+              type="wantToRead"
+              name="Want to read"
+              books={this.state.books}
+              moveBook={this.moveBook}
             />
             <BookSection
-              name="Currently reading"
               style="reading"
-              books={this.state.currentlyReading}
+              type="currentlyReading"
+              name="Currently reading"
+              books={this.state.books}
+              moveBook={this.moveBook}
             />
             <BookSection
+              type="read"
               name="Read"
               style="read"
-              books={this.state.read}
+              books={this.state.books}
+              moveBook={this.moveBook}
             />
           </div>
           <Footer />
