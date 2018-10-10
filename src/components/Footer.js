@@ -1,12 +1,22 @@
-import React from 'react';
-import { FaHeart } from 'react-icons/fa';
+import React from "react";
+import { FaHeart, FaReact } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="row footer">
-      <span>Developed by <a target="_blank" href="https://github.com/tavioalves" rel="noopener noreferrer">OA</a> with <FaHeart /></span>
-    </div>
-  )
-}
+    <footer className="row footer">
+      <span>
+        Developed by{" "}
+        <a
+          target="_blank"
+          href="https://github.com/tavioalves"
+          rel="noopener noreferrer"
+        >
+          OA
+        </a>{" "}
+        with <FaHeart color={"#ff283e"} /> and <FaReact color={'#33E0FF'} />
+      </span>
+    </footer>
+  );
+};
 
 export default Footer;

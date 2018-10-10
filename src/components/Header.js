@@ -2,9 +2,9 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <div className="row header">
+    <header className="row header">
       <span>My Reads</span>
-    </div>
+    </header>
   )
 }
 
