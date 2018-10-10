@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 class SearchBar extends Component {
   state = {
     query: ''
-  }
+  }  
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.props.searchBook(this.state.query);
+    if (this.state.query !== '') 
+      this.props.searchBook(this.state.query)
   }
 
   handleChange = (value) => {

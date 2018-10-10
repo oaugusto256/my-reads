@@ -6,6 +6,10 @@ class Book extends Component {
     selectValue: ''
   }
 
+  componentDidMount() {
+    this.setState({ selectValue: this.props.book.shelf })
+  }
+
   handleSelection = (event) => {
     this.setState({ selectValue: event.target.value });
   }
@@ -29,7 +33,7 @@ class Book extends Component {
               this.setState({ selectValue: '' });
             }}
           >
-            <option>Move to...</option>
+            <option value="" disabled>Move to...</option>
             <option value="currentlyReading">Currently reading</option>
             <option value="wantToRead">Want to read</option>
             <option value="read">Read</option>

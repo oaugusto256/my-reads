@@ -88,18 +88,6 @@ body {
   padding: 30px;
 }
 
-.to-read {
-  background-color: #81ECEC;
-}
-
-.reading {
-  background-color: #81B7EC;
-}
-
-.read {
-  background-color: #8181EC;
-}
-
 .button-section {
   top: 90%;
   right: 25px;

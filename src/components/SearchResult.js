@@ -9,24 +9,21 @@ class SearchResult extends Component {
   }
 
   renderBooks = (props) => {
-    return props.books.map(book => (
-      props.type === book.shelf ?
-        (
-          <Book
-            book={book}
-            moveBook={props.moveBook}
-          />
-        ) : null
+    return props.searchedBooks.map(book => (     
+      <Book
+        book={book}
+        key={book.id}
+        moveBook={props.moveBook}
+      />        
     ))
   }
   
   renderError = () => {
     return (
-      <div class="error-section fadeIn animated">
+      <div className="error-section fadeIn animated">
         <p>Nothing has been found. Try again.</p>
         <FaFrown size={50} />
       </div>
-  
     )
   }
   
@@ -37,13 +34,14 @@ class SearchResult extends Component {
   }
 
   render() {
+    
     if (this.props.loading) {
       return <Loading size={15} color={'#777'} />
     } else {
       return (
         <div className="search-result-section">
           <div className="flex-collumn">
-            {(!this.props.books.length && !this.props.error) 
+            {(!this.props.searchedBooks.length && !this.props.error) 
               ? this.renderSearchInstruction() 
               : null}            
             {this.props.error 
