@@ -9,7 +9,7 @@ import "./styles/animate.css";
 import './styles/my-reads.css';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <MyReads />
   </BrowserRouter>, 
   document.getElementById('root'));

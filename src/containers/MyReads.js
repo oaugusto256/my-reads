@@ -107,7 +107,7 @@ class MyReads extends Component {
           <Route
             exact
             path="/"
-            render={() => {
+            component={() => {
               return (
                 <div className="row height-100">
                   <AddButton />
@@ -139,7 +139,7 @@ class MyReads extends Component {
           <Route
             exact
             path="/search"
-            render={() => {
+            component={() => {
               return (
                 <div className="row height-100">
                   <div className="search-section">
