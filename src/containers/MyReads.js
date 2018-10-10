@@ -35,6 +35,7 @@ class MyReads extends Component {
 
   componentDidMount() {
     BookAPI.getAll().then(books => {
+      console.log(books);
       this.setState({ books: books, loading: false });
     });
   }
