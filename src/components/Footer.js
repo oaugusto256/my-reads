@@ -4,7 +4,7 @@ import { FaHeart } from 'react-icons/fa';
 const Footer = () => {
   return (
     <div className="row footer">
-      <span>Developed by <a target="_blank" href="https://github.com/tavioalves">OA</a> with <FaHeart /></span>
+      <span>Developed by <a target="_blank" href="https://github.com/tavioalves" rel="noopener noreferrer">OA</a> with <FaHeart /></span>
     </div>
   )
 }

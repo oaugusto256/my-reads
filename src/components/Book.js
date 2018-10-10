@@ -29,7 +29,7 @@ class Book extends Component {
               this.setState({ selectValue: '' });
             }}
           >
-            <option value="">Move to...</option>
+            <option>Move to...</option>
             <option value="currentlyReading">Currently reading</option>
             <option value="wantToRead">Want to read</option>
             <option value="read">Read</option>

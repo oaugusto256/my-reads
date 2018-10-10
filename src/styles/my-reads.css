@@ -1,13 +1,13 @@
 /**
   My Reads - CCS3 StyleGuide
   Author: Otavio Augusto
-  github: @tavioalves
+  github: github.com/tavioalves
   E-mail: tavioalves@gmail.com
 **/
 
 html,
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .height-100 {
@@ -36,9 +36,8 @@ body {
 
   min-height: 75px;
 
-  font-size: 22px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
+  font-size: 24px;
+  letter-spacing: 3.5px;
 
   -webkit-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
@@ -53,7 +52,7 @@ body {
 
   min-height: 50px;
 
-  font-size: 16px;
+  font-size: 18px;
 
   -webkit-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.25);
@@ -66,6 +65,12 @@ body {
   padding-top: 20px;
   letter-spacing: 2.5px;
   text-align: center;
+}
+
+.search-section {
+  width: 100%;
+  padding-top: 30px;
+  background-color: #81ECEC;
 }
 
 .to-read {
@@ -93,21 +98,23 @@ body {
 }
 
 .button-section {
-  top: 85%;
+  top: 90%;
   right: 25px;
   z-index: 1;
   position: fixed;
 }
 
-.button-rounded {
-  width: 65px;
-  height: 65px;
+.button-add {
+  max-width: 60px;
+  max-height: 60px;
+
   margin: 10px;
-  padding: 5px;
+  padding: 20px;
 
   border: none;
   border-radius: 100%;
 
+  background-color: #6cff60;
   color: #fff;
 
   cursor: pointer;
@@ -117,12 +124,24 @@ body {
   box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
 }
 
-.add {
-  background-color: #6cff60
-}
+.button-back {
+  max-width: 60px;
+  max-height: 60px;
 
-.search {
-  background-color: #777;
+  margin-right: 20px;
+  padding: 20px;
+
+  border: none;
+  border-radius: 100%;
+
+  background-color: #EC81B7;
+  color: #fff;
+
+  cursor: pointer;
+
+  -webkit-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
 }
 
 .book {
@@ -144,14 +163,14 @@ body {
 }
 
 .book-title {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
-  margin-top: 7.5px;
+  margin-top: 12.5px;
   margin-bottom: 0px;
 }
 
 .book-subtitle {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 200;
   margin-top: 5px;
   margin-bottom: 0px;
@@ -164,8 +183,8 @@ body {
   align-content: center;
   justify-content: center;
 
-  right: -20px;
-  bottom: 55px;
+  right: -15px;
+  bottom: 60px;
   position: absolute;
 
   width: 30px;
@@ -198,4 +217,18 @@ body {
   top: 0px;
 
   cursor: pointer;
+}
+
+.search-bar {
+  width: 80%;
+  height: 50px;
+  padding: 30px;
+  font-size: 20px;
+
+  border-radius: 50px;
+  border: none;
+
+  -webkit-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2.5px 2.5px 0px rgba(0, 0, 0, 0.25);
 }

@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import Header from './components/Header';
 import Footer from './components/Footer';
-import BookSection from './components/BookSection';
+import SearchBar from './components/SearchBar';
 import AddButton from './components/AddButton';
+import BookSection from './components/BookSection';
+
+
 import { PropagateLoader } from 'react-spinners';
+import { Route } from 'react-router-dom';
 import * as BookAPI from './BooksAPI';
 
 class MyReads extends Component {
@@ -27,6 +31,7 @@ class MyReads extends Component {
     if (moveTo.length !== 0) {
       const newBooks = this.state.books.filter(bookToCheck => {
         if (bookToCheck.id === book.id) {
+          BookAPI.update(book, moveTo);
           bookToCheck.shelf = moveTo;
           return bookToCheck;
         } else {
@@ -34,7 +39,7 @@ class MyReads extends Component {
         }
       })
 
-      this.setState({ books: newBooks })
+      this.setState({ books: newBooks });
     }
   }
 
@@ -53,32 +58,49 @@ class MyReads extends Component {
       )
     } else {
       return (
-        <div className="container-fluid">
-          <Header />
-          <AddButton />
-          <div className="row height-100">
-            <BookSection
-              style="to-read"
-              type="wantToRead"
-              name="Want to read"
-              books={this.state.books}
-              moveBook={this.moveBook}
+        <div className="container-fluid">          
+            <Header />
+            <Route
+              exact
+              path='/'
+              render={() => (
+                <div className="row height-100">
+                  <AddButton />
+                  <BookSection
+                    style="to-read"
+                    type="wantToRead"
+                    name="Want to read"
+                    books={this.state.books}
+                    moveBook={this.moveBook}
+                  />
+                  <BookSection
+                    style="reading"
+                    type="currentlyReading"
+                    name="Currently reading"
+                    books={this.state.books}
+                    moveBook={this.moveBook}
+                  />
+                  <BookSection
+                    type="read"
+                    name="Read"
+                    style="read"
+                    books={this.state.books}
+                    moveBook={this.moveBook}
+                  />
+                </div>               
+              )}
             />
-            <BookSection
-              style="reading"
-              type="currentlyReading"
-              name="Currently reading"
-              books={this.state.books}
-              moveBook={this.moveBook}
+            <Route
+              exact
+              path='/search'
+              render={() => (
+                <div className="row height-100">
+                  <div className="search-section">
+                    <SearchBar />
+                  </div>                  
+                </div>               
+              )}
             />
-            <BookSection
-              type="read"
-              name="Read"
-              style="read"
-              books={this.state.books}
-              moveBook={this.moveBook}
-            />
-          </div>
           <Footer />
         </div>
       );
