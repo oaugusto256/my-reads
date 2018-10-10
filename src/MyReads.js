@@ -1,106 +1,125 @@
 import React, { Component } from "react";
-import Header from './components/Header';
-import Footer from './components/Footer';
-import SearchBar from './components/SearchBar';
-import AddButton from './components/AddButton';
-import BookSection from './components/BookSection';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Loading from "./components/Loading";
+import SearchBar from "./components/SearchBar";
+import AddButton from "./components/AddButton";
+import BookSection from "./components/BookSection";
+import SearchResult from "./components/SearchResult";
 
-
-import { PropagateLoader } from 'react-spinners';
-import { Route } from 'react-router-dom';
-import * as BookAPI from './BooksAPI';
+import { Route } from "react-router-dom";
+import * as BookAPI from "./BooksAPI";
 
 class MyReads extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       books: [],
-      loading: true
-    }
+      searchedBooks: [],
+      loading: true,
+      searchLoading: false,
+      errorSearching: false
+    };
   }
 
   componentDidMount() {
-    BookAPI.getAll()
-      .then(books => {
-        this.setState({ books: books, loading: false })
-      })
+    BookAPI.getAll().then(books => {
+      this.setState({ books: books, loading: false });
+    });
   }
 
-  moveBook = (book, moveTo) => {
-    if (moveTo.length !== 0) {
-      const newBooks = this.state.books.filter(bookToCheck => {
-        if (bookToCheck.id === book.id) {
-          BookAPI.update(book, moveTo);
-          bookToCheck.shelf = moveTo;
-          return bookToCheck;
-        } else {
-          return book;
-        }
-      })
+  searchBook = query => {
+    this.setState({ searchLoading: true })
 
-      this.setState({ books: newBooks });
+    BookAPI.search(query).then(books => {
+      books.error === "empty query"
+        ? this.setState({ errorSearching: true, searchLoading: false })
+        : this.setState({ searchedBooks: books, errorSearching: false, searchLoading: false });
+    });
+  };
+
+  moveBook = (book, moveTo) => {
+    if (book.shelf !== moveTo) {
+      if (moveTo.length !== 0) {
+        this.setState({ loading: true });
+
+        BookAPI.update(book, moveTo).then(() => {
+          BookAPI.getAll().then(books => {
+            this.setState({ books, loading: false });
+          })
+        })
+      }
     }
+  };
+
+  eraseSearchedBooks = () => {
+    this.setState({ searchedBooks: [] })
   }
 
   render() {
     if (this.state.loading) {
       return (
-        <div className="container height-100 animated fadeIn">
-          <div className="flex-center height-100">
-            <PropagateLoader
-              size={15}
-              sizeUnit={"px"}
-              color={'#0984e3'}
-            />
-          </div>
+        <div className="container-fluid">
+          <Header />
+          <Loading size={15} color={'#8181EC'} />
+          <Footer />
         </div>
-      )
+      );
     } else {
       return (
-        <div className="container-fluid">          
-            <Header />
-            <Route
-              exact
-              path='/'
-              render={() => (
-                <div className="row height-100">
-                  <AddButton />
-                  <BookSection
-                    style="to-read"
-                    type="wantToRead"
-                    name="Want to read"
-                    books={this.state.books}
-                    moveBook={this.moveBook}
+        <div className="container-fluid">
+          <Header />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <div className="row height-100">
+                <AddButton />
+                <BookSection
+                  style="to-read"
+                  type="wantToRead"
+                  name="Want to read"
+                  books={this.state.books}
+                  moveBook={this.moveBook}
+                />
+                <BookSection
+                  style="reading"
+                  type="currentlyReading"
+                  name="Currently reading"
+                  books={this.state.books}
+                  moveBook={this.moveBook}
+                />
+                <BookSection
+                  type="read"
+                  name="Read"
+                  style="read"
+                  books={this.state.books}
+                  moveBook={this.moveBook}
+                />
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/search"
+            render={() => (
+              <div className="row height-100">
+                <div className="search-section">
+                  <SearchBar 
+                    searchBook={this.searchBook} 
                   />
-                  <BookSection
-                    style="reading"
-                    type="currentlyReading"
-                    name="Currently reading"
-                    books={this.state.books}
+                  <SearchResult
                     moveBook={this.moveBook}
+                    books={this.state.searchedBooks}
+                    error={this.state.errorSearching}
+                    loading={this.state.searchLoading}
+                    cleanSection={this.eraseSearchedBooks}
                   />
-                  <BookSection
-                    type="read"
-                    name="Read"
-                    style="read"
-                    books={this.state.books}
-                    moveBook={this.moveBook}
-                  />
-                </div>               
-              )}
-            />
-            <Route
-              exact
-              path='/search'
-              render={() => (
-                <div className="row height-100">
-                  <div className="search-section">
-                    <SearchBar />
-                  </div>                  
-                </div>               
-              )}
-            />
+                </div>
+              </div>
+            )}
+          />
           <Footer />
         </div>
       );

@@ -10,7 +10,8 @@ class BookSection extends Component {
           {this.props.books.map(book => (
             this.props.type === book.shelf ?
               ( 
-                <Book 
+                <Book
+                  key={book.id} 
                   book={book}
                   moveBook={this.props.moveBook}
                 />

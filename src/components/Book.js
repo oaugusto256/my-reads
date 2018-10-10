@@ -6,17 +6,17 @@ class Book extends Component {
     selectValue: ''
   }
 
-  handleSelection = (e) => {
-    this.setState({ selectValue: e.target.value });
+  handleSelection = (event) => {
+    this.setState({ selectValue: event.target.value });
   }
 
-
   render() {
-    const { book } = this.props;
-    
+    const { book } = this.props;  
+    const bookThumbnail = (!book.imageLinks) ? 'https://via.placeholder.com/130x175' : book.imageLinks.thumbnail;
+
     return (
-      <div className="book animated slideInUp" key={book.title}>
-        <img className="book-img" src={book.imageLinks.thumbnail} alt={book.title} />
+      <div className="book animated fadeIn" key={book.id}>
+        <img className="book-img" src={bookThumbnail} alt={book.title} />
         <p className="book-title">{book.title}</p>
         <p className="book-subtitle">{book.subtitle}</p>
         <div className="book-selection">
