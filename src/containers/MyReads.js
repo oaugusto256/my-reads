@@ -44,7 +44,7 @@ class MyReads extends Component {
     let bookFound;
 
     shelf.forEach(bookInShelf => {
-      if(bookInShelf.id === book.id) 
+      if (bookInShelf.id === book.id)
         bookFound = bookInShelf
     })
 
@@ -55,14 +55,14 @@ class MyReads extends Component {
     this.setState({ searchLoading: true })
 
     BookAPI.search(query).then(searchedBooks => {
-      if(!this.searchBook.error === "empty query") {
+      if (!this.searchBook.error === "empty query") {
         searchedBooks = searchedBooks.map(bookToCheck => {
           let bookInTheShelf = this.inTheShelf(bookToCheck, this.state.books);
-          
-          if(bookInTheShelf === undefined) {
+
+          if (bookInTheShelf === undefined) {
             bookToCheck.shelf = 'none'
             return bookToCheck;
-          } else        
+          } else
             return bookInTheShelf;
         })
       }
@@ -107,54 +107,58 @@ class MyReads extends Component {
           <Route
             exact
             path="/"
-            render={() => (
-              <div className="row height-100">
-                <AddButton />
-                <BookSection
-                  type="wantToRead"
-                  name="Want to read"
-                  style={toReadStyle}
-                  books={this.state.books}
-                  moveBook={this.moveBook}
-                />
-                <BookSection
-                  type="currentlyReading"
-                  style={readingStyle}
-                  name="Currently reading"
-                  books={this.state.books}
-                  moveBook={this.moveBook}
-                />
-                <BookSection
-                  type="read"
-                  name="Read"
-                  style={readStyle}
-                  books={this.state.books}
-                  moveBook={this.moveBook}
-                />
-              </div>
-            )}
+            render={() => {
+              return (
+                <div className="row height-100">
+                  <AddButton />
+                  <BookSection
+                    type="wantToRead"
+                    name="Want to read"
+                    style={toReadStyle}
+                    books={this.state.books}
+                    moveBook={this.moveBook}
+                  />
+                  <BookSection
+                    type="currentlyReading"
+                    style={readingStyle}
+                    name="Currently reading"
+                    books={this.state.books}
+                    moveBook={this.moveBook}
+                  />
+                  <BookSection
+                    type="read"
+                    name="Read"
+                    style={readStyle}
+                    books={this.state.books}
+                    moveBook={this.moveBook}
+                  />
+                </div>
+              )
+            }}
           />
           <Route
             exact
             path="/search"
-            render={() => (
-              <div className="row height-100">
-                <div className="search-section">
-                  <SearchBar 
-                    searchBook={this.searchBook} 
-                    cleanSection={this.eraseSearchedBooks}
-                  />
-                  <SearchResult
-                    moveBook={this.moveBook}
-                    booksShelf={this.state.books}
-                    error={this.state.errorSearching}
-                    loading={this.state.searchLoading}
-                    cleanSection={this.eraseSearchedBooks}
-                    searchedBooks={this.state.searchedBooks}
-                  />
+            render={() => {
+              return (
+                <div className="row height-100">
+                  <div className="search-section">
+                    <SearchBar
+                      searchBook={this.searchBook}
+                      cleanSection={this.eraseSearchedBooks}
+                    />
+                    <SearchResult
+                      moveBook={this.moveBook}
+                      booksShelf={this.state.books}
+                      error={this.state.errorSearching}
+                      loading={this.state.searchLoading}
+                      cleanSection={this.eraseSearchedBooks}
+                      searchedBooks={this.state.searchedBooks}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )
+            }}
           />
           <Footer />
         </div>
