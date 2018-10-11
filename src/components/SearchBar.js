@@ -43,7 +43,7 @@ class SearchBar extends Component {
             value={this.state.query}
             onChange={this.handleChange}
             className="search-bar fadeIn animated"
-            placeholder="Search books to add to your bookshelf..."
+            placeholder="Search for a category' book to add to your bookshelf..."
           />
           <span className="erase-search" onClick={() => this.eraseSearch()}>
             <FaTimes />
