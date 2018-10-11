@@ -18,7 +18,7 @@ body {
   width: 100%;
 }
 
-.flex-collumn {
+.flex-row {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -83,7 +83,7 @@ body {
   text-align: center;
 }
 
-.search-result-section {
+.result-section {
   width: 100%;
   padding: 30px;
 }
@@ -225,7 +225,7 @@ body {
 }
 
 .erase-search {
-  top: 120px;  
+  top: 122.5px;
   right: 60px;
 
   position: absolute;

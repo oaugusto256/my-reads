@@ -5,7 +5,7 @@ const BookSection = (props) => {
   return (
     <div className={`animated fadeIn col-lg-4`} style={props.style}>
       <p className="book-section-header">{props.name}</p>
-      <div className="flex-collumn">
+      <div className="flex-row">
         {props.books.map(book => (
           props.type === book.shelf ?
             (<Book

@@ -5,52 +5,42 @@ import { FaFrown } from 'react-icons/fa';
 
 class SearchResult extends Component {
   componentWillUnmount() {
-    this.props.cleanSection();
+    this.props.cleanResult();
   }
 
   renderBooks = (props) => {
-    return props.searchedBooks.map(book => (     
-      <Book
-        book={book}
-        key={book.id}
-        moveBook={props.moveBook}
-      />        
-    ))
+    if(props.loading) {
+      return <Loading size={15} color={'#8181EC'} />
+    } else if (props.error) {
+      return (
+        <div className="error-section fadeIn animated">
+          <p>Nothing has been found. Try again.</p>
+          <FaFrown size={50} />
+        </div>
+      )
+    } else {
+      return props.searchedBooks.map(book => (
+        <Book
+          book={book}
+          key={book.id}
+          moveBook={props.moveBook}
+        />
+      ))
+    }
   }
-  
-  renderError = () => {
-    return (
-      <div className="error-section fadeIn animated">
-        <p>Nothing has been found. Try again.</p>
-        <FaFrown size={50} />
-      </div>
-    )
-  }
-  
+
   renderSearchInstruction = () => {
     return (
-      <p className="search-instruction">Type the category of desired book and press 'Enter'.</p>
+      <p className="search-instruction">Type the category of desired book to add.</p>
     )
   }
 
   render() {
-    
-    if (this.props.loading) {
-      return <Loading size={15} color={'#777'} />
-    } else {
-      return (
-        <div className="search-result-section">
-          <div className="flex-collumn">
-            {(!this.props.searchedBooks.length && !this.props.error) 
-              ? this.renderSearchInstruction() 
-              : null}            
-            {this.props.error 
-              ? this.renderError() 
-              : this.renderBooks(this.props)}
-          </div>
-        </div>
-      )
-    }
+    return (         
+      <div className="flex-row result-section">
+        {this.renderBooks(this.props)}
+      </div>
+    )
   }
 }
 

@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import { FaChevronLeft, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { DebounceInput } from 'react-debounce-input';
 
 class SearchBar extends Component {
-  state = {
-    query: ''
-  }  
+  constructor(props) {
+    super(props);
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+    this.state = {
+      query: ''
+    };
 
-    if (this.state.query !== '') 
-      this.props.searchBook(this.state.query)
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = (value) => {
-    this.setState({ query: value });
+  handleChange = (event) => {
+    this.setState({ query: event.target.value });
+
+    if (this.state.query !== '')
+      this.props.searchBook(this.state.query)
+
+    if (this.state.query === '')
+      this.props.cleanResult()
   }
 
   eraseSearch = () => {
     this.setState({ query: '' });
+    
+    this.props.cleanResult();
   }
 
   render() {
@@ -29,15 +37,14 @@ class SearchBar extends Component {
           <FaChevronLeft size={20} />
         </Link>
         <div className="width-100">
-          <form onSubmit={this.handleSubmit}>
-            <input
-              value={this.state.query}
-              onChange={(event) => this.handleChange(event.target.value)}
-              type="text"
-              className="search-bar fadeIn animated"
-              placeholder={"Search books to add to your bookshelf..."}
-            />
-          </form>          
+          <DebounceInput
+            minLength={3}
+            debounceTimeout={500}
+            value={this.state.query}
+            onChange={this.handleChange}
+            className="search-bar fadeIn animated"
+            placeholder="Search books to add to your bookshelf..."
+          />
           <span className="erase-search" onClick={() => this.eraseSearch()}>
             <FaTimes />
           </span>

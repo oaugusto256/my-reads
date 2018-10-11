@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
-import SearchBar from "../components/SearchBar";
 import AddButton from "../components/AddButton";
+import SearchBar from "../components/SearchBar";
 import BookSection from "../components/BookSection";
 import SearchResult from "../components/SearchResult";
 
@@ -35,7 +35,6 @@ class MyReads extends Component {
 
   componentDidMount() {
     BookAPI.getAll().then(books => {
-      console.log(books);
       this.setState({ books: books, loading: false });
     });
   }
@@ -55,23 +54,32 @@ class MyReads extends Component {
     this.setState({ searchLoading: true })
 
     BookAPI.search(query).then(searchedBooks => {
-      if (!this.searchBook.error === "empty query") {
+      console.log(searchedBooks.error);
+      if(searchedBooks.error === 'empty query') {        
+        this.setState({ 
+          searchedBooks: [], 
+          searchLoading: false,
+          errorSearching: true, 
+        })
+      } else {
         searchedBooks = searchedBooks.map(bookToCheck => {
           let bookInTheShelf = this.inTheShelf(bookToCheck, this.state.books);
 
           if (bookInTheShelf === undefined) {
-            bookToCheck.shelf = 'none'
+            bookToCheck.shelf = 'none';
             return bookToCheck;
           } else
             return bookInTheShelf;
         })
-      }
 
-      searchedBooks.error === "empty query"
-        ? this.setState({ errorSearching: true, searchLoading: false })
-        : this.setState({ searchedBooks, errorSearching: false, searchLoading: false });
-    });
-  };
+        this.setState({ 
+          searchedBooks, 
+          searchLoading: false,
+          errorSearching: false, 
+        })
+      }        
+    }) 
+  }
 
   moveBook = (book, moveTo) => {
     if (book.shelf !== moveTo) {
@@ -107,7 +115,7 @@ class MyReads extends Component {
           <Route
             exact
             path="/"
-            component={() => {
+            render={() => {
               return (
                 <div className="row height-100">
                   <AddButton />
@@ -139,20 +147,20 @@ class MyReads extends Component {
           <Route
             exact
             path="/search"
-            component={() => {
+            render={() => {
               return (
                 <div className="row height-100">
                   <div className="search-section">
                     <SearchBar
                       searchBook={this.searchBook}
-                      cleanSection={this.eraseSearchedBooks}
+                      cleanResult={this.eraseSearchedBooks}
                     />
                     <SearchResult
                       moveBook={this.moveBook}
                       booksShelf={this.state.books}
                       error={this.state.errorSearching}
                       loading={this.state.searchLoading}
-                      cleanSection={this.eraseSearchedBooks}
+                      cleanResult={this.eraseSearchedBooks}
                       searchedBooks={this.state.searchedBooks}
                     />
                   </div>
