@@ -40,7 +40,16 @@ class MyReads extends Component {
     
     this.setState((prev) => ({
       books: prev.books.filter(b => b.id !== book.id).concat([book])
-  }))
+    }))
+  }
+
+  inTheShelf = (book, shelf) => {
+    let bookFound;
+     shelf.forEach(bookInShelf => {
+      if (bookInShelf.id === book.id)
+        bookFound = bookInShelf
+    })
+     return bookFound;
   }
 
   searchBook = query => {
@@ -54,6 +63,15 @@ class MyReads extends Component {
           errorSearching: true, 
         })
       } else {
+        searchedBooks = searchedBooks.map(bookToCheck => {
+          let bookInTheShelf = this.inTheShelf(bookToCheck, this.state.books);
+           if (bookInTheShelf === undefined) {
+            bookToCheck.shelf = 'none';
+            return bookToCheck;
+          } else
+            return bookInTheShelf;
+        })
+
         this.setState({ 
           searchedBooks, 
           searchLoading: false,
@@ -67,8 +85,7 @@ class MyReads extends Component {
     this.setState({ searchedBooks: [] })
   }
 
-  render() {
-    console.log("Teste...")
+  render() {  
     if (this.state.loading) {
       return (
         <div className="container-fluid">
