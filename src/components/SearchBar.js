@@ -10,8 +10,6 @@ class SearchBar extends Component {
     this.state = {
       query: ''
     };
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange = (event) => {
@@ -41,7 +39,7 @@ class SearchBar extends Component {
             minLength={3}
             debounceTimeout={500}
             value={this.state.query}
-            onChange={this.handleChange}
+            onChange={(event) => this.handleChange(event)}
             className="search-bar fadeIn animated"
             placeholder="Search for a category' book to add to your bookshelf..."
           />
