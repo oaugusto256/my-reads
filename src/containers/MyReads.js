@@ -38,7 +38,9 @@ class MyReads extends Component {
     BookAPI.update(book, shelf);
     book.shelf = shelf;
     
-    this.setState(state => { books: state.books.filter(b => b.id !== book.id).concat([ book ]) })
+    this.setState((prev) => ({
+      books: prev.books.filter(b => b.id !== book.id).concat([book])
+  }))
   }
 
   searchBook = query => {
@@ -66,6 +68,7 @@ class MyReads extends Component {
   }
 
   render() {
+    console.log("Teste...")
     if (this.state.loading) {
       return (
         <div className="container-fluid">
