@@ -10,8 +10,9 @@ class Book extends Component {
     this.setState({ selectValue: this.props.book.shelf })
   }
 
-  handleSelection = (event) => {
-    this.setState({ selectValue: event.target.value });
+  handleSelection = (event, book) => {
+    this.setState({ selectValue: event.target.value })
+    this.props.moveBook(book, event.target.value)
   }
 
   render() {
@@ -27,11 +28,7 @@ class Book extends Component {
           <FaChevronDown size={12.5} />
           <select
             value={this.state.selectValue}
-            onChange={this.handleSelection}
-            onClick={() => {
-              this.props.moveBook(book, this.state.selectValue)
-              this.setState({ selectValue: '' });
-            }}
+            onChange={event => this.handleSelection(event, book)}
           >
             <option value="" disabled>Move to...</option>
             <option value="currentlyReading">Currently reading</option>
