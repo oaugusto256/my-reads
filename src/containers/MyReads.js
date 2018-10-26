@@ -29,28 +29,22 @@ class MyReads extends Component {
     errorSearching: false
   }
 
-  componentDidMount() {
-    BookAPI.getAll().then(books => {
-      this.setState({ books: books, loading: false });
-    });
+  async componentDidMount() {
+    const books = await BookAPI.getAll();
+    this.setState({ books, loading: false });
   }
 
-  inTheShelf = (book, shelf) => {
-    let bookFound;
-
-    shelf.forEach(bookInShelf => {
-      if (bookInShelf.id === book.id)
-        bookFound = bookInShelf
-    })
-
-    return bookFound;
+  moveBook = (book, shelf) => {
+    BookAPI.update(book, shelf);
+    book.shelf = shelf;
+    
+    this.setState(state => { books: state.books.filter(b => b.id !== book.id).concat([ book ]) })
   }
 
   searchBook = query => {
     this.setState({ searchLoading: true })
 
     BookAPI.search(query).then(searchedBooks => {
-      console.log(searchedBooks.error);
       if(searchedBooks.error === 'empty query') {        
         this.setState({ 
           searchedBooks: [], 
@@ -58,16 +52,6 @@ class MyReads extends Component {
           errorSearching: true, 
         })
       } else {
-        searchedBooks = searchedBooks.map(bookToCheck => {
-          let bookInTheShelf = this.inTheShelf(bookToCheck, this.state.books);
-
-          if (bookInTheShelf === undefined) {
-            bookToCheck.shelf = 'none';
-            return bookToCheck;
-          } else
-            return bookInTheShelf;
-        })
-
         this.setState({ 
           searchedBooks, 
           searchLoading: false,
@@ -76,20 +60,6 @@ class MyReads extends Component {
       }        
     }) 
   }
-
-  moveBook = (book, moveTo) => {
-    if (book.shelf !== moveTo) {
-      if (moveTo.length !== 0) {
-        this.setState({ loading: true });
-
-        BookAPI.update(book, moveTo).then(() => {
-          BookAPI.getAll().then(books => {
-            this.setState({ books, loading: false });
-          })
-        })
-      }
-    }
-  };
 
   eraseSearchedBooks = () => {
     this.setState({ searchedBooks: [] })
