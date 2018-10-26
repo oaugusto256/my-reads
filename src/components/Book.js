@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 
-class Book extends Component {
+class Book extends PureComponent {
   state = {
     selectValue: ''
   }
