@@ -21,16 +21,12 @@ const readingStyle = {
 }
 
 class MyReads extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      books: [],
-      searchedBooks: [],
-      loading: true,
-      searchLoading: false,
-      errorSearching: false
-    };
+  state = {
+    books: [],
+    searchedBooks: [],
+    loading: true,
+    searchLoading: false,
+    errorSearching: false
   }
 
   componentDidMount() {
