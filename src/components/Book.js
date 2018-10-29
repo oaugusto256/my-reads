@@ -3,7 +3,7 @@ import { FaChevronDown } from 'react-icons/fa';
 
 class Book extends PureComponent {
   state = {
-    selectValue: ''
+    selectValue: 'none'
   }
 
   componentDidMount() {

@@ -143,7 +143,6 @@ class MyReads extends Component {
                     />
                     <SearchResult
                       moveBook={this.moveBook}
-                      booksShelf={this.state.books}
                       error={this.state.errorSearching}
                       loading={this.state.searchLoading}
                       cleanResult={this.eraseSearchedBooks}
