@@ -4,7 +4,7 @@
 
 ## Live 
 
-You can use and access the project at: https://tavioalves.github.io/my-reads
+You can use and access the project at: https://oaugusto256.github.io/my-reads
 
 ## How to use
 
